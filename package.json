@@ -1,0 +1,16 @@
+{
+  "name": "lifecycletest",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "body-parser": "^1.15.2",
+    "mssql": "^4.0.4"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Alan",
+  "license": "ISC"
+}
