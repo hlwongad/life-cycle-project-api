@@ -28,20 +28,29 @@ app.get("/", function(req , res){
 });
 
 app.get("/api/customer", function(req , res){
-    console.log(req.originalUrl);
     var query = "select TOP (1000) * from [Customer]";
     if(req.query.cid != null){
-        query = "select CustomerName from [Customer] where CustomerId=" + req.query.cid;
+        query = "select * from [Customer] where CustomerId=" + req.query.cid;
     }
     dbHandler.executeQuery (res, query);
 });
 
-//POST API
- app.post("/api/customer/:CustomerName", function(req , res){
-    console.log(req.originalUrl);
-    var query = "INSERT INTO [Customer] (CustomerName) VALUES ("+req.query.CustomerName+")";
-    dbHandler.executeQuery (res, query);
+app.get("/api/customer/name", function(req , res){
+    if(req.query.cid != null){
+        query = "select CustomerName from [Customer] where CustomerId=" + req.query.cid;
+        dbHandler.executeQuery (res, query);
+    }
+    else{
+        res.send({status: "failed"})
+    }
 });
+
+// POST API
+// app.post("/api/customer/:CustomerName", function(req , res){
+//     console.log(req.originalUrl);
+//     var query = "INSERT INTO [Customer] (CustomerName) VALUES ("+req.query.CustomerName+")";
+//     dbHandler.executeQuery (res, query);
+// });
 
 // PUT API
 // app.put("/api/customer/:CustomerName", function(req , res){
