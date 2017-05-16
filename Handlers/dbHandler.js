@@ -1,10 +1,10 @@
-var config = require("./config.js")
+var config = require("../config.js")
 var sql = require("mssql");
 
 module.exports = {
 
     //Function to connect to database and execute query
-    executeQuery : function(res, query){
+    executeQuery : function(query, trackback){
         sql.close();
         sql.connect(config.dbConfig, function (err) {
             if (err) {
@@ -18,10 +18,10 @@ module.exports = {
                 request.query(query, function (err, dbres) {
                     if (err) {
                         console.log("Error while querying database :- " + err);
-                        res.send(err);
+                        trackback(err)
                     }
                     else {
-                        res.send(dbres);
+                        trackback(dbres)
                     }
                 });
             }

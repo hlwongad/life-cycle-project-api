@@ -3,7 +3,9 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 
-var dbHandler = require("./dbHandler.js");
+var dbHandler = require("./Handlers/dbHandler.js");
+var Customer = require("./Models/Customer.js");
+
 
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
@@ -28,17 +30,27 @@ app.get("/", function(req , res){
 });
 
 app.get("/api/customer", function(req , res){
-    var query = "select TOP (1000) * from [Customer]";
-    if(req.query.cid != null){
-        query = "select * from [Customer] where CustomerId=" + req.query.cid;
-    }
-    dbHandler.executeQuery (res, query);
+    // var query = "select TOP (1000) * from [Customer]";
+    // if(req.query.cid != null){
+    //     query = "select * from [Customer] where CustomerId=" + req.query.cid;
+    // }
+    // dbHandler.executeQuery(query);
 });
 
 app.get("/api/customer/name", function(req , res){
     if(req.query.cid != null){
-        query = "select CustomerName from [Customer] where CustomerId=" + req.query.cid;
-        dbHandler.executeQuery (res, query);
+        var customer = new Customer(req.query.cid, null);
+        query = "select CustomerName from [Customer] where CustomerId=" + customer.getId();
+        
+        var result = dbHandler.executeQuery(query, function(dbres){
+            try{
+                customer.setName(dbres.recordset[0].CustomerName);
+                res.send(customer);
+            }
+            catch(e){
+                res.send({status: "failed", reason: dbres})
+            }
+        });
     }
     else{
         res.send({status: "failed"})
