@@ -6,10 +6,18 @@
   "dependencies": {
     "express": "^4.14.0",
     "body-parser": "^1.15.2",
-    "mssql": "^4.0.4"
+    "mssql": "^4.0.4",
+    "chai": "3.5.0",
+    "co-mocha": "1.1.2",
+    "mocha": "2.5.3",
+    "sinon": "1.17.4",
+    "sinon-chai": "2.8.0",
+    "cross-env": "5.0.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "npm run test-unit",
+    "test-unit": "cross-env NODE_ENV=test mocha --require co-mocha Tests/*.spec.js"
   },
   "author": "Alan",
   "license": "ISC"

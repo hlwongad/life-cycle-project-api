@@ -3,9 +3,7 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 
-var dbHandler = require("./Handlers/dbHandler.js");
-var Customer = require("./Models/Customer.js");
-
+var CustomerService = require("./Services/CustomerService.js");
 
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
@@ -39,18 +37,9 @@ app.get("/api/customer", function(req , res){
 
 app.get("/api/customer/name", function(req , res){
     if(req.query.cid != null){
-        var customer = new Customer(req.query.cid, null);
-        query = "select CustomerName from [Customer] where CustomerId=" + customer.getId();
-        
-        var result = dbHandler.executeQuery(query, function(dbres){
-            try{
-                customer.setName(dbres.recordset[0].CustomerName);
-                res.send(customer);
-            }
-            catch(e){
-                res.send({status: "failed", reason: dbres})
-            }
-        });
+        CustomerService.getCustomerNameById(req.query.cid).then(function(sres){
+            res.send(sres)
+        })
     }
     else{
         res.send({status: "failed"})
