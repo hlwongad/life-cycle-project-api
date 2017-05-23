@@ -25,3 +25,5 @@ get all column of the customer, where CustomerId == cid
 `/api/customer/name?cid={CustomerId}`
 get the name of the customer, where CustomerId == cid
 
+## Unit test
+`npm test` to run all the unit test
