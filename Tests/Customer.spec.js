@@ -1,5 +1,3 @@
-"use strict";
-
 const expect = require('chai').expect
 
 const CustomerService = require('../Services/CustomerService.js')
