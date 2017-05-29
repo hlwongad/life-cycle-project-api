@@ -7,7 +7,7 @@ Interface between a Client and any DB
 `npm install` to acquire all required node modules
 
 `npm start` to start the server, which will run in `localhost:8080`
-
+ 
 ## DB connection
  - config.js : 
 
@@ -26,4 +26,4 @@ get all column of the customer, where CustomerId == cid
 get the name of the customer, where CustomerId == cid
 
 ## Unit test
-`npm test` to run all the unit test
+`npm test` to run all the unit tests
