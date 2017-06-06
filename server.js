@@ -32,7 +32,7 @@ app.get("/api/customer", function(req , res){
     // if(req.query.cid != null){
     //     query = "select * from [Customer] where CustomerId=" + req.query.cid;
     // }
-    // dbHandler.executeQuery(query);
+    // dbHandler.executeQuery(query);test
 });
 
 app.get("/api/customer/name", function(req , res){
